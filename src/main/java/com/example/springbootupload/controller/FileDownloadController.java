@@ -1,6 +1,6 @@
 package com.example.springbootupload.controller;
 
-import com.sun.deploy.net.URLEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,20 +10,20 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
  * @ClassName: FileUploadController
- * @Author: xz
+ * @Author: Ltx
  * @CreateDate: 2019/3/25 17:31
  * @Version: 1.0
  *  文件下载
  */
-@Controller
+@Slf4j
+@RestController
 public class FileDownloadController {
-
-    private static final Logger logger = LoggerFactory.getLogger(FileDownloadController.class);
 
     @RequestMapping("/download")
     public String singleFile() {
@@ -51,7 +51,7 @@ public class FileDownloadController {
                     bis = new BufferedInputStream(fis);
                     OutputStream os = response.getOutputStream();
                     int i = bis.read(buffer);
-                    logger.info(""+i);
+                    log.info(""+i);
                     while (i != -1) {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
